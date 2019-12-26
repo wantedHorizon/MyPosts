@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -18,6 +19,8 @@ mongoose.connect("mongodb+srv://max:uipMl6rlsa69bcXG@cluster0-kxely.mongodb.net/
 //
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use("/images",express.static(path.join("backend/images"))) ; // any request to images will go foward
 // 9A3EbqK7jdkRxuPv
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
