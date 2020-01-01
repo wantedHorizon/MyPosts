@@ -2,13 +2,14 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { AuthData } from "./auth-data.model";
 import { Subject } from "rxjs";
+import { Router } from "@angular/router";
 
 @Injectable({providedIn: "root"})
 export class AuthService {
     private isAuthenticated = false;
     private token: string;
     private authStatusListner= new Subject<boolean>();
-    constructor(private http: HttpClient){}
+    constructor(private http: HttpClient, private router: Router){}
     createUser( email: string, password: string){
         const authData: AuthData = { email: email, password:password};
         this.http.post("http://localhost:3000/api/user/signup", authData)
@@ -36,10 +37,18 @@ export class AuthService {
             if(token){
                 this.isAuthenticated = true;
                 this.authStatusListner.next(true);
+                this.router.navigate(['/']);
             }
         
         });
         
+    }
+
+    logout(){
+        this.token = null;
+        this.isAuthenticated = false;
+        this.authStatusListner.next(false);
+        this.router.navigate(['/']);
     }
 
     getToken(){
