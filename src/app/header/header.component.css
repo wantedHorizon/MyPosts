@@ -12,3 +12,11 @@ ul {
 .spacer {
     flex: 1 1 auto ;
 }
+
+ul {
+    display: flex;
+}
+
+.mat-card-header {
+    background-color: black;
+}

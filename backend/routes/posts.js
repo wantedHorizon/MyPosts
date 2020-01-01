@@ -1,5 +1,7 @@
 const express = require("express");
 const multer = require("multer");
+const checkAuth = require("../middleware/check-auth");
+const Post = require('../models/post');
 
 const router = express.Router();
 const MINE_TYPE_MAP = {
@@ -7,7 +9,6 @@ const MINE_TYPE_MAP = {
   'image/jpeg': 'jpg',
   'image/jpg':'jpg'
 };
-const Post = require('../models/post');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -28,7 +29,10 @@ const storage = multer.diskStorage({
 });
 
 //xh9z89KGfRWI5SfY
-router.post("", multer({storage: storage}).single('image'),(req, res, next) => {
+router.post("",
+checkAuth,
+ multer({storage: storage}).single('image'),
+ (req, res, next) => {
   const url = req.protocol + '://' + req.get("host");
     const post = new Post({
      
@@ -80,8 +84,10 @@ router.post("", multer({storage: storage}).single('image'),(req, res, next) => {
   
   
   });
-  //patch if wanted only update 
-  router.put("/:id",multer({storage: storage}).single('image') ,(req, res, next) => {
+  //replace with patch if wanted only update 
+  router.put("/:id",
+  checkAuth,
+  multer({storage: storage}).single('image') ,(req, res, next) => {
     let imagePath= req.body.imagePath;
     if(req.file){
 
@@ -112,7 +118,9 @@ router.post("", multer({storage: storage}).single('image'),(req, res, next) => {
   })
   });
   
-  router.delete("/:id", (req, res, next) => {
+  router.delete("/:id",
+  checkAuth,
+   (req, res, next) => {
     Post.deleteOne({_id: req.params.id}).then (result => {
       console.log(result);
       res.status(200).json({message: "Post deleted!"});
