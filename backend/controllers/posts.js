@@ -1,5 +1,4 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+
 const Post = require('../models/post');
 
 
@@ -97,14 +96,18 @@ exports.createPost = (req, res, next) => {
             imagePath: imagePath,
             creator: req.userData.userId
           });
+
+          console.log(post);
+          console.log(req.userData);
+
           Post.updateOne({_id: req.params.id, ceator: req.userData.userId } ,post)
           .then( result => {
-                    console.log(result);
-                    if(result.nModified > 0) {
+
+                    if(result.n > 0) {
                     res.status(200).json({message: "successfuly updated!"});
             
                     } else {
-                    res.status(401).json({message: "not autorised"});
+                    res.status(401).json({message: "Not autorized"});
                     }
           })
           .catch(error => {
