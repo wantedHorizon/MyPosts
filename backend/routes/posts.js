@@ -11,14 +11,14 @@ const router = express.Router();
   
 
   //get all posts
-  router.get("", PostControllers.getAllPosts);
+  router.get("", PostControllers.getPosts);
 
   //replace with patch if wanted only update 
   router.put("/:id", checkAuth,  extractFile, PostControllers.updatePost);
   
 
   //get single postBy post id
-  router.get("/:id", PostControllers.getSinglePost );
+  router.get("/:id", PostControllers.getPost );
   
 
   //delete post by postID

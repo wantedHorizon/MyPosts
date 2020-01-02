@@ -18,9 +18,7 @@ exports.createPost = (req, res, next) => {
           post: {
             ...createdPost,
             id: createdPost._id,
-            // title: createdPost.title,
-            // content: createdPost.content,
-            // imagePath: createdPost.imagePath
+           
           }
         });
     
@@ -31,10 +29,10 @@ exports.createPost = (req, res, next) => {
         });
       });
     
-    }
+    };
 
 
-    exports.getAllPosts = (req, res, next) => {
+    exports.getPosts = (req, res, next) => {
         const pageSize = + req.query.pagesize;
         const currentPage = +req.query.page;
         const postQuery = Post.find();
@@ -63,9 +61,9 @@ exports.createPost = (req, res, next) => {
         });
       
       
-      }
+      };
 
-      exports.getSinglePost = (req,res,next) => {
+      exports.getPost = (req,res,next) => {
         Post.findById(req.params.id).then(post => {
           if(post){
             res.status(200).json(post);
@@ -79,7 +77,7 @@ exports.createPost = (req, res, next) => {
           res.status(500).json({message: "Fetching post failed!"});
       
         })
-        }
+        };
 
 
       exports.updatePost = (req, res, next) => {
@@ -87,7 +85,7 @@ exports.createPost = (req, res, next) => {
         if(req.file){
     
           const url = req.protocol + '://' + req.get("host");
-          imagePath=  url+"/images/" + req.file.filename;
+          imagePath=  url+ "/images/" + req.file.filename;
         }
           const post = new Post({
             _id: req.body.id,
@@ -97,24 +95,22 @@ exports.createPost = (req, res, next) => {
             creator: req.userData.userId
           });
 
-          console.log(post);
-          console.log(req.userData);
+        
 
-          Post.updateOne({_id: req.params.id, ceator: req.userData.userId } ,post)
-          .then( result => {
-
-                    if(result.n > 0) {
-                    res.status(200).json({message: "successfuly updated!"});
-            
-                    } else {
-                    res.status(401).json({message: "Not autorized"});
-                    }
-          })
-          .catch(error => {
-            res.status(500).json({message: "post updating failed!"});
-    
-          });
+          Post.updateOne({ _id: req.params.id, creator: req.userData.userId }, post)
+    .then(result => {
+      if (result.n > 0) {
+        res.status(200).json({ message: "Update successful!" });
+      } else {
+        res.status(401).json({ message: "Not authorized!" });
       }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "Couldn't udpate post!"
+      });
+    });
+};
 
 
       exports.deletePost = (req, res, next) => {
@@ -134,6 +130,6 @@ exports.createPost = (req, res, next) => {
         });
         //console.log(req.params.id);
       
-      }
+      };
 
 
