@@ -54,6 +54,11 @@ checkAuth,
         }
       });
   
+    })
+    .catch( error => {
+      res.status(500).json({
+        message: 'Creating a post failed!'
+      });
     });
   
   });
@@ -81,6 +86,9 @@ checkAuth,
         maxPosts: count
       });
       
+    }).catch( error => {
+      res.status(500).json({message: "Fetching post failed!"});
+
     });
   
   
@@ -110,6 +118,10 @@ checkAuth,
         } else {
           res.status(401).json({message: "not autorised"});
         }
+      })
+      .catch(error => {
+        res.status(500).json({message: "post updating failed!"});
+
       });
   });
   
@@ -122,6 +134,10 @@ checkAuth,
     else {
       res.status(404).json({message: 'Post not found'});
     }
+  })
+  .catch( error => {
+    res.status(500).json({message: "Fetching post failed!"});
+
   })
   });
   
@@ -137,6 +153,10 @@ checkAuth,
       } else {
         res.status(401).json({message: "not autorised"});
       }
+    })
+    .catch( error => {
+      res.status(500).json({message: "Deleting post failed!"});
+
     });
     //console.log(req.params.id);
   

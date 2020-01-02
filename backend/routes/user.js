@@ -20,9 +20,12 @@ router.post("/signup", (req, res, next) => {
             });
         })
         .catch( err => {
-            res.status(500).json({
-                error: err
-            })
+            res.status(500).json(
+                {
+                    message: "Invalid autenticaion credentials!"
+                }
+                
+            );
         });
 
     });
@@ -37,7 +40,7 @@ router.post("/login" , (req, res, next) => {
         
         if(!user){
             return res.status(401).json({
-                message:"Auth failed"
+                message:"Autenticaion failed: plz Sign-up first"
             });
         }
         fetchedUser = user;
@@ -47,7 +50,7 @@ router.post("/login" , (req, res, next) => {
         
         if( !result){
             return res.status(401).json({
-                message:"Auth failed"
+                message:"Autenticaion failed: Invalid password"
             });
         }
         //here we know we have a valid user 
@@ -63,7 +66,7 @@ router.post("/login" , (req, res, next) => {
     })
     .catch(err => {
         return res.status(401).json({
-            message:"Auth failed"
+            message:"Invalid autenticaion credentials!"
         });
     });
 });
