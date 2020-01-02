@@ -15,7 +15,7 @@ const MINE_TYPE_MAP = {
         error = null;
       
       }
-      cb(null, "backend/images");
+      cb(null, "images");
       
     },
     filename: (req, file, cb) => {

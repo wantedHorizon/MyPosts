@@ -1,12 +1,31 @@
 # PostMsg
 
-This project was generated with Angular, Express and mongoDB.
+![alt tag](https://i.ibb.co/d4gstXv/MyPost.png)
 
 
-## Development server
+This app is a posts uploading system.
+The system allows login, registration, and upload/edit posts with images.
+
+upload is allowed only to logged-in users,
+editing is restricted to the post creators.
+
+This project was generated with Angular, Express, node.js, mongoose MongoDB.
+
+Deployed with aws on :
+`http://mean-angular-nodejs-mypost.s3-website.us-east-2.amazonaws.com/`
+
+This app is built with angular for the frontend.
+
+The backend uses a RESTFUL API method, deployed in a separated server built with NODE.JS.
+
+To add your own mongoDB database plz add `MONGO_ATLAS_PW` password on  `nodemon.json`
+
+
+
+## Development server locally
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
--- make sure to  run `node server.js` to start the backend server on http://localhost:3000/ and see those ports are free .
+-- make sure to run `npm run start:server` to start the backend server on http://localhost:3000/ and verify those ports are free.
 
 
 

@@ -1,6 +1,6 @@
 {
     "env": {
-        "MONGO_ATLAS_PW" : "uipMl6rlsa69bcXG",
+        "MONGO_ATLAS_PW" : "enter_here_the_user_passkey",
         "JWT_KEY": "secret_this_should_be_very_long"
 
     }
