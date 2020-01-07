@@ -1,4 +1,4 @@
-# PostMsg
+# MyPosts
 
 ![alt tag](https://i.ibb.co/d4gstXv/MyPost.png)
 
